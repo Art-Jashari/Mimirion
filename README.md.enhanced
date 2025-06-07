@@ -65,12 +65,33 @@ Install [MSVC](https://visualstudio.microsoft.com/downloads/), [CMake](https://c
 vcpkg install openssl curl zlib
 ```
 
-### Building
+### Dependencies with vcpkg
+
+Mimirion uses vcpkg for dependency management. If you already have vcpkg installed, you can build the project using the vcpkg manifest mode:
 
 ```bash
+# Set the VCPKG_ROOT environment variable if not already set
+export VCPKG_ROOT=/path/to/vcpkg
+
+# Build with vcpkg integration
 mkdir build
 cd build
-cmake ..
+cmake -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake ..
+make
+```
+
+If you don't have vcpkg installed:
+
+```bash
+# Install vcpkg
+git clone https://github.com/microsoft/vcpkg.git
+./vcpkg/bootstrap-vcpkg.sh
+export VCPKG_ROOT=$(pwd)/vcpkg
+
+# Build with vcpkg integration
+mkdir build
+cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake ..
 make
 ```
 
@@ -79,7 +100,7 @@ For Windows with MSVC:
 ```bash
 mkdir build
 cd build
-cmake -G "Visual Studio 16 2019" ..
+cmake -G "Visual Studio 16 2019" -DCMAKE_TOOLCHAIN_FILE=%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake ..
 cmake --build . --config Release
 ```
 

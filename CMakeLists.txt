@@ -5,6 +5,12 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# Configure vcpkg
+if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+  set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+      CACHE STRING "Vcpkg toolchain file")
+endif()
+
 # Option to build tests
 option(MIMIRION_BUILD_TESTS "Build the Mimirion test suite" ON)
 
@@ -58,16 +64,11 @@ install(TARGETS github_example DESTINATION bin)
 
 # Google Test setup
 if(MIMIRION_BUILD_TESTS)
-    # Fetch and build Google Test
-    include(FetchContent)
-    FetchContent_Declare(
-        googletest
-        GIT_REPOSITORY https://github.com/google/googletest.git
-        GIT_TAG release-1.12.1
-    )
+    # Use GTest from vcpkg
+    find_package(GTest CONFIG REQUIRED)
+    
     # For Windows: Prevent overriding the parent project's compiler/linker settings
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-    FetchContent_MakeAvailable(googletest)
     
     # Enable testing
     enable_testing()

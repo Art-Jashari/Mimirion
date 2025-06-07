@@ -17,6 +17,7 @@ if ! command -v jq &> /dev/null; then
     echo "Please install it using your package manager:"
     echo "  For Ubuntu/Debian: sudo apt install jq"
     echo "  For Fedora/RHEL: sudo dnf install jq"
+    echo "  For Manjaro/Arch: sudo pacman -S jq"
     echo "  For macOS (Homebrew): brew install jq"
     exit 1
 fi

@@ -32,8 +32,8 @@ add_executable(mimirion_tests ${TEST_SOURCES})
 target_link_libraries(mimirion_tests 
     PRIVATE
     mimirion_lib
-    gtest
-    gtest_main
+    GTest::gtest
+    GTest::gtest_main
     CURL::libcurl
     OpenSSL::SSL
     OpenSSL::Crypto
