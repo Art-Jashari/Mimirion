@@ -1,0 +1,21 @@
+{
+  "name": "mimirion",
+  "version-string": "0.1.0",
+  "description": "A custom version control system (VCS) with GitHub integration",
+  "homepage": "https://github.com/Art-Jashari/Mimirion",
+  "license": "GPL-3.0",
+  "dependencies": [
+    "curl",
+    "openssl",
+    "zlib"
+  ],
+  "features": {
+    "tests": {
+      "description": "Build tests",
+      "dependencies": [
+        "gtest"
+      ]
+    }
+  },
+  "builtin-baseline": "984f9232b2fe0eb94f5e9f161d6c632c581fff0c"
+}

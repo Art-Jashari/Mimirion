@@ -1,14 +1,15 @@
 cmake_minimum_required(VERSION 3.13)
 project(Mimirion VERSION 0.1.0 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
 # Configure vcpkg
 if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
-  set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+  set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/vcpkg-toolchain.cmake"
       CACHE STRING "Vcpkg toolchain file")
+elseif(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+  message(WARNING "VCPKG_ROOT is not defined. Dependencies may not be available.")
+  set(CMAKE_CXX_STANDARD 17)
+  set(CMAKE_CXX_STANDARD_REQUIRED ON)
+  set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
 # Option to build tests

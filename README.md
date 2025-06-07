@@ -67,17 +67,31 @@ vcpkg install openssl curl zlib
 
 ### Dependencies with vcpkg
 
-Mimirion uses vcpkg for dependency management. If you already have vcpkg installed, you can build the project using the vcpkg manifest mode:
+Mimirion uses vcpkg for dependency management. The simplest way to build is to use the provided build script:
+
+```bash
+# Use the automatic build script (recommended)
+./scripts/build_with_vcpkg.sh
+```
+
+This script will automatically:
+- Check for vcpkg installation or install it if needed
+- Configure the project with CMake and vcpkg integration
+- Build the project with optimal parallelism
+
+#### Manual Build with vcpkg
+
+If you prefer to build manually:
 
 ```bash
 # Set the VCPKG_ROOT environment variable if not already set
 export VCPKG_ROOT=/path/to/vcpkg
 
 # Build with vcpkg integration
-mkdir build
+mkdir -p build
 cd build
 cmake -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake ..
-make
+make -j$(nproc)
 ```
 
 If you don't have vcpkg installed:
