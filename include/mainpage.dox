@@ -1,0 +1,144 @@
+/**
+ * @mainpage Mimirion VCS Documentation
+ * 
+ * @section intro_sec Introduction
+ * 
+ * Mimirion is a custom version control system (VCS) with GitHub integration.
+ * It provides basic functionality similar to Git, with a special focus on
+ * GitHub API integration. This project demonstrates the core concepts of
+ * a version control system while providing a foundation for more advanced features.
+ * 
+ * @section features_sec Features
+ * 
+ * - Repository initialization and management
+ * - File tracking and staging
+ * - Creating commits with messages
+ * - Branching and checkout
+ * - Remote repository integration
+ * - GitHub API integration for pushing, pulling, and repository creation
+ * - Diffing and patching functionality
+ * 
+ * @section architecture_sec Architecture
+ * 
+ * Mimirion follows a modular architecture with clear separation of concerns:
+ *
+ * @image html Architecture.png "Mimirion Architecture Diagram"
+ * 
+ * The architecture diagram is generated using PlantUML from the source file in docs/images/architecture.puml.
+ * 
+ * @section usage_sec Basic Usage
+ * 
+ * @subsection init_subsec Initialize a Repository
+ * @code{.bash}
+ * mimirion init [path]
+ * @endcode
+ * 
+ * @subsection status_subsec Check Status
+ * @code{.bash}
+ * mimirion status
+ * @endcode
+ * 
+ * @subsection add_subsec Add Files to Staging Area
+ * @code{.bash}
+ * mimirion add <path>
+ * @endcode
+ * 
+ * @subsection commit_subsec Create a Commit
+ * @code{.bash}
+ * mimirion commit <message>
+ * @endcode
+ * 
+ * @subsection branch_subsec Work with Branches
+ * @code{.bash}
+ * mimirion branch <name>     # Create branch
+ * mimirion checkout <name>   # Switch to branch
+ * @endcode
+ * 
+ * @section classes_sec Core Classes
+ * 
+ * - Repository: Main class for repository management
+ * - FileTracker: Tracks file statuses
+ * - CommitManager: Manages commits and history
+ * - DiffEngine: Creates and applies diffs
+ * - RemoteProvider: Interface for remote repository interaction
+ * - GitHubProvider: Implementation for GitHub integration
+ * 
+ * @section examples_sec Example Code
+ * 
+ * @subsection ex1_subsec Initialize and Commit
+ * @code{.cpp}
+ * #include "repository.hpp"
+ * #include <iostream>
+ * 
+ * int main() {
+ *     mimirion::Repository repo;
+ * 
+ *     // Initialize repository
+ *     if (!repo.init("my_project")) {
+ *         std::cerr << "Failed to initialize repository" << std::endl;
+ *         return 1;
+ *     }
+ * 
+ *     // Add a file
+ *     repo.add("README.md");
+ * 
+ *     // Create a commit
+ *     std::string commitHash = repo.commit("Initial commit");
+ *     
+ *     if (!commitHash.empty()) {
+ *         std::cout << "Created commit: " << commitHash << std::endl;
+ *     }
+ * 
+ *     return 0;
+ * }
+ * @endcode
+ * 
+ * @subsection ex2_subsec GitHub Integration
+ * @code{.cpp}
+ * #include "repository.hpp"
+ * #include "github_api.hpp"
+ * #include <iostream>
+ * 
+ * int main() {
+ *     mimirion::Repository repo;
+ *     mimirion::GitHubProvider github;
+ * 
+ *     // Load repository
+ *     if (!repo.load(".")) {
+ *         std::cerr << "Failed to load repository" << std::endl;
+ *         return 1;
+ *     }
+ * 
+ *     // Set GitHub credentials
+ *     github.setCredentials("username", "personal_access_token");
+ * 
+ *     // Create GitHub repository
+ *     if (github.createRepository("my_project", "A new project", true)) {
+ *         std::cout << "Created GitHub repository" << std::endl;
+ * 
+ *         // Add remote
+ *         repo.addRemote("origin", "https://github.com/username/my_project.git");
+ * 
+ *         // Push to GitHub
+ *         repo.push("origin", "master");
+ *     }
+ * 
+ *     return 0;
+ * }
+ * @endcode
+ * 
+ * @section future_sec Future Enhancements
+ * 
+ * - More advanced diff algorithm (Myers diff)
+ * - Merge conflict resolution
+ * - Interactive rebase
+ * - Pull requests via GitHub API
+ * - GUI interface
+ * - Plugin system for other remote providers
+ * 
+ * @see Repository
+ * @see CommitManager
+ * @see FileTracker
+ * @see DiffEngine
+ * @see GitHubProvider
+ */

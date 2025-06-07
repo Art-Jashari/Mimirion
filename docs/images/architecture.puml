@@ -1,0 +1,28 @@
+@startuml Architecture
+skinparam backgroundColor white
+skinparam componentStyle rectangle
+skinparam component {
+    BorderColor black
+    BackgroundColor white
+}
+
+component "Main CLI" as cli
+
+component "Repository" as repo
+component "FileTracker" as fileTracker
+component "CommitManager" as commitManager
+component "DiffEngine" as diffEngine
+component "RemoteProvider" as remoteProvider
+component "GitHub API" as githubApi
+
+cli -down-> repo
+cli -down-> fileTracker
+cli -down-> commitManager
+
+repo --> diffEngine
+repo --> remoteProvider
+fileTracker --> diffEngine
+commitManager --> diffEngine
+
+remoteProvider --> githubApi
+@enduml

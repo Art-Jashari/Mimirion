@@ -1,0 +1,29 @@
+/**
+ * @brief Set GitHub credentials for API operations
+ * @param username GitHub username
+ * @param token GitHub personal access token
+ * @return true if successful, false otherwise
+ */
+bool Repository::setGitHubCredentials(const std::string& username, const std::string& token) {
+    if (!githubProvider) {
+        std::cerr << "GitHub provider not initialized" << std::endl;
+        return false;
+    }
+    
+    githubProvider->setCredentials(username, token);
+    return true;
+}
+
+/**
+ * @brief Set GitHub credentials from a token file
+ * @param tokenFilePath Path to the token file
+ * @return true if successful, false otherwise
+ */
+bool Repository::setGitHubCredentialsFromFile(const fs::path& tokenFilePath) {
+    if (!githubProvider) {
+        std::cerr << "GitHub provider not initialized" << std::endl;
+        return false;
+    }
+    
+    return githubProvider->setCredentialsFromFile(tokenFilePath);
+}
