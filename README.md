@@ -428,4 +428,4 @@ This project is for educational purposes and demonstrates the core concepts of v
 
 ## Contact
 
-Project Link: [https://github.com/username/mimirion](https://github.com/username/mimirion)
+Project Link: [https://github.com/Art-Jashar/Mimirion](https://github.com/Art-Jashari/Mimirion)
